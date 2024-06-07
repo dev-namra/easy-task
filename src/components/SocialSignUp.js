@@ -1,14 +1,27 @@
-// src/components/SocialSignUp.js
+// SocialSignUp.js
 import React from 'react';
 import { signInWithGoogle } from '../firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 const SocialSignUp = () => {
+  const navigate = useNavigate();
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      const user = await signInWithGoogle();
+      console.log('User signed in with Google:', user);
+      navigate('/home'); // Redirect to home page after successful sign-in
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
+    }
+  };
+
   return (
     <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
       <div className="w-full mb-2 lg:mb-0">
         <button
           type="button"
-          onClick={signInWithGoogle}
+          onClick={handleSignInWithGoogle}
           className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4">
